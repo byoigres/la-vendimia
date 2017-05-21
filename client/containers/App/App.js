@@ -5,11 +5,11 @@ import {
   Link,
 } from 'react-router-dom';
 import Hello from '../../components/Hello';
-
+import Layout from '../../components/Layout';
 
 const App = () => (
   <Router>
-    <div>
+    <Layout>
       <Route
         path="/"
         exact
@@ -25,7 +25,7 @@ const App = () => (
         exact
         render={() => <div>THIS IS ZZZ</div>}
       />
-    </div>
+    </Layout>
   </Router>
 );
 
