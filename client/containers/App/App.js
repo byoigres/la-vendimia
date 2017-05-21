@@ -4,12 +4,14 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
-import Hello from '../../components/Hello';
-import Layout from '../../components/Layout';
+import Layout from 'components/Layout';
+import Navbar from 'components/Navbar';
+import Hello from 'components/Hello';
 
 const App = () => (
   <Router>
     <Layout>
+      <Navbar title="La Vendimia" />
       <Route
         path="/"
         exact

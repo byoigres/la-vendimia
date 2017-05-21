@@ -4,6 +4,17 @@
         "browser": true
     },
     "rules": {
-        "react/jsx-filename-extension": 0
-    }
+        "react/jsx-filename-extension": 0,
+        "import/no-unresolved": [
+          2, {
+            "ignore": [
+              "^styles$",
+              "^components/"
+            ]
+          }
+        ],
+    },
+    "settings": {
+        "import/resolver": "webpack"
+      }
 }
