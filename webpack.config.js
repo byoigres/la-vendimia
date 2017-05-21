@@ -3,6 +3,9 @@ const path = require('path');
 const packageConfig = require('./package.json');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const PostcssImport = require('postcss-import');
+const PostcssNext = require('postcss-cssnext');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const BASE_PATH = __dirname;
 const SRC_PATH = path.join(BASE_PATH, 'client');
@@ -10,6 +13,18 @@ const DIST_PATH = path.join(BASE_PATH, 'dist');
 const PUBLIC_PATH = '/';
 const HTML_INDEX_FILENAME = 'index.html';
 const IS_DEV = process.env.NODE_ENV !== 'production';
+
+const postcssOptions = {
+  plugins: () => [
+    PostcssImport({
+      path: path.join(SRC_PATH, 'styles'),
+      addDependencyTo: webpack
+    }),
+    PostcssNext({
+      browsers: ['last 2 versions', '> 5%'],
+    }),
+  ],
+};
 
 const htmlWebpackConfig = [HTML_INDEX_FILENAME, '404.html'].map(filename => (
   new HtmlWebpackPlugin({
@@ -60,6 +75,24 @@ const webpackConfig = {
           },
         ],
         include: SRC_PATH,
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true,
+              localIdentName: '[local]',
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: postcssOptions,
+          },
+        ],
       },
     ],
   },
@@ -115,6 +148,7 @@ if (IS_DEV) {
       minimize: true,
       debug: false,
     }),
+    new ExtractTextPlugin('styles.css'),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false,
       compress: {
@@ -131,6 +165,27 @@ if (IS_DEV) {
       sourceMap: false,
     })
   );
+
+  webpackConfig.module.rules.forEach((rule) => {
+    if (rule.test.test('.css')) {
+      rule.use = ExtractTextPlugin.extract({ /* eslint no-param-reassign: 0 */
+        fallback: 'style-loader',
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[hash:base64:8]',
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: postcssOptions,
+          },
+        ],
+      });
+    }
+  });
 }
 
 module.exports = webpackConfig;

@@ -1,0 +1,5 @@
+@import "variables.css";
+
+.navbar {
+  background-color: var(--bg-color);
+}
