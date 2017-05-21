@@ -8,7 +8,7 @@
         "import/no-unresolved": [
           2, {
             "ignore": [
-              "^styles$",
+              "^styles/",
               "^components/"
             ]
           }

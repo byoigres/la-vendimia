@@ -59,7 +59,7 @@ const webpackConfig = {
       'node_modules',
     ],
     alias: {
-      // styles: path.resolve(__dirname, './src/styles'),
+      styles: path.resolve(SRC_PATH, 'styles'),
       components: path.resolve(SRC_PATH, 'components'),
     },
     extensions: ['.js', '.jsx', '.json', '.css'],

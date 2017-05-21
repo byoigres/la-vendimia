@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import './variables.css';
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: var(--primary-text-color);
+    font-family: var(--base-font-family), Arial;
+    font-size: var(--base-font-size);
+}
+
+a {
+  color: var(--default-primary-color);
+
+  &:hover {
+    color: var(--light-primary-color);
+  }
+}
+
+/* base classes */
+
+.content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    max-width: 76rem;
+    width: 100%;
+
+    & .aside {
+      max-width: 12rem;
+      flex: 1 0 auto;
+    }
+
+    & .main-content {
+      margin: 0 1rem;
+      background-color: red;
+      max-width: 64rem;
+      flex: 1 0 auto;
+    }
+
+    & p {
+        text-align: justify;
+    }
+}
+
+@media only screen and (width < 80rem) {
+    .container {
+        margin: 0 1rem;
+        width: auto;
+    }
+
+    h1 {
+        font-size: 1.8em;
+        text-align: center;
+    }
+
+    blockquote {
+        padding: 0;
+        margin: 2rem 0;
+        font-size: 2rem;
+    }
+}

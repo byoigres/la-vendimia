@@ -4,7 +4,9 @@ import styles from './styles.css';
 
 const Layout = ({ title }) => (
   <div className={styles.navbar}>
-    <h1>{title}</h1>
+    <div className={styles['navbar-container']}>
+      <h1>{title}</h1>
+    </div>
   </div>
 );
 

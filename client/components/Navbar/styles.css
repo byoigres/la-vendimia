@@ -1,5 +1,17 @@
 @import "variables.css";
 
 .navbar {
-  background-color: var(--bg-color);
+  background-color: var(--dark-primary-color);
+  overflow: hidden;
+  justify-content: center;
+  display: flex;
+  flex: 1 0 auto;
+  width: 100%;
+  margin-bottom: 1rem;
+  color: var(--text-primary-color);
+
+  & .navbar-container {
+    width: 100%;
+    max-width: 76rem;
+  }
 }

@@ -1,0 +1,22 @@
+@import 'variables.css';
+
+ul.menu {
+  background-color: transparent;
+  padding: 5px;
+  margin: 0px;
+  border: 0.125rem solid rgba(255, 255, 255, 0.87);
+
+  & li {
+    list-style: none;
+    & .separator {
+      display: block;
+      border-bottom: 1px solid var(--divider-color);
+      margin: 10px 0;
+      height: 0;
+    }
+    & a {
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+  }
+}

@@ -1,3 +1,20 @@
 :root {
-  --bg-color: green;
+  --dark-primary-color: #1976D2;
+  --default-primary-color: #2196F3;
+  --light-primary-color: #BBDEFB;
+  --text-primary-color: #FFFFFF;
+  --accent-color: #00BCD4;
+  --primary-text-color: #212121;
+  --secondary-text-color: #757575;
+  --divider-color: #BDBDBD;
+
+  /* asasas */
+  --base-color: black;
+  --base-font-family: 'Open Sans', Arial;
+  --base-font-size: 16px;
+  --primary-color-1: red;
+  --primary-color-2: red;
+  --primary-color-3: red;
+  --navbar-background-color: rgba(0, 0, 0, 0.87);
+  --full-white:  rgba(255, 255, 255, 1);
 }
