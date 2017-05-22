@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   TextInput,
@@ -52,4 +53,9 @@ const AddCustomer = () => (
   </div>
 );
 
-export default AddCustomer;
+const mapStateToProps = state => state;
+
+export default connect(
+  mapStateToProps,
+  {},
+)(AddCustomer);
