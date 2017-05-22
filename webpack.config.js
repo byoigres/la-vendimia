@@ -68,6 +68,7 @@ const webpackConfig = {
       styles: path.resolve(SRC_PATH, 'styles'),
       components: path.resolve(SRC_PATH, 'components'),
       containers: path.resolve(SRC_PATH, 'containers'),
+      actions: path.resolve(SRC_PATH, 'actions'),
     },
     extensions: ['.js', '.jsx', '.json', '.css'],
   },

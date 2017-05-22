@@ -9,7 +9,7 @@ function callApi(requestInfo = {
   headers: {},
 }, schema) {
   const { endpoint, method, body, headers } = requestInfo;
-  const fullUrl = ` /${endpoint}`;
+  const fullUrl = `http://localhost:5550/${endpoint}`;
 
   const options = {
     method,

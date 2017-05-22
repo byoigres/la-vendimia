@@ -5,17 +5,24 @@
     },
     "rules": {
         "react/jsx-filename-extension": 0,
+        "import/no-extraneous-dependencies": 0,
+        "import/extensions": 0,
         "import/no-unresolved": [
           2, {
             "ignore": [
               "^styles/",
               "^components/",
-              "^containers/"
+              "^containers/",
+              "^actions$"
             ]
           }
         ],
     },
     "settings": {
-        "import/resolver": "webpack"
+        "import/resolver": {
+            "webpack": {
+                "config": "webpack.config.js"
+              }
+          }
       }
 }
