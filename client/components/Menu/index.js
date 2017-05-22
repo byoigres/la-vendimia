@@ -1,1 +1,7 @@
-export { Menu as default, MenuSeparator } from './Menu';
+import Menu from './Menu';
+import MenuSeparator from './MenuSeparator';
+
+export {
+  Menu,
+  MenuSeparator,
+};

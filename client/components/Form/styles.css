@@ -1,0 +1,47 @@
+.form {
+  display: flex;
+  margin-left: 1rem;
+  flex-direction: column;
+
+  & .form-group {
+    display: flex;
+    flex: 1 0 auto;
+    padding: 0.3125rem 0;
+
+    & label {
+      &:after {
+        content: ":";
+      }
+      text-align: right;
+      @for $i from 1 to 12 {
+          &.form-label-space-$i {
+            flex: 0 0 calc((100% / 12 ) * $(i));
+          }
+      }
+    }
+
+    & .form-control {
+      margin-left: 1rem;
+      @for $i from 1 to 12 {
+          &.form-control-space-$i {
+            flex: 0 0 calc((100% / 12 ) * $(i));
+          }
+      }
+    }
+  }
+
+  & .form-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    > *:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+
+    @for $i from 1 to 12 {
+        &.form-action-space-$i {
+          width: calc(((100% / 12 ) * $(i)) + 1.1rem);
+        }
+    }
+  }
+}

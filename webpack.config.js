@@ -5,6 +5,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const PostcssImport = require('postcss-import');
 const PostcssNext = require('postcss-cssnext');
+const PostcssFor = require('postcss-for');
+const PostcssNested = require('postcss-nested');
+const PostcssSimpleVars = require('postcss-simple-vars');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const BASE_PATH = __dirname;
@@ -16,6 +19,9 @@ const IS_DEV = process.env.NODE_ENV !== 'production';
 
 const postcssOptions = {
   plugins: () => [
+    PostcssFor(),
+    PostcssNested(),
+    PostcssSimpleVars(),
     PostcssImport({
       path: path.join(SRC_PATH, 'styles'),
       addDependencyTo: webpack
@@ -61,6 +67,7 @@ const webpackConfig = {
     alias: {
       styles: path.resolve(SRC_PATH, 'styles'),
       components: path.resolve(SRC_PATH, 'components'),
+      containers: path.resolve(SRC_PATH, 'containers'),
     },
     extensions: ['.js', '.jsx', '.json', '.css'],
   },

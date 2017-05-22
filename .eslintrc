@@ -9,7 +9,8 @@
           2, {
             "ignore": [
               "^styles/",
-              "^components/"
+              "^components/",
+              "^containers/"
             ]
           }
         ],

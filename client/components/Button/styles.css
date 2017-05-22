@@ -1,0 +1,17 @@
+@import 'variables';
+
+.button {
+  background-color: var(--default-primary-color);
+  color: var(--text-primary-color);
+  border: 0.125rem solid var(--light-primary-color);
+  padding: 0.25rem 0.5rem;
+
+  & > a {
+    color: var(--text-primary-color);
+    text-decoration: none;
+  }
+
+  &:hover {
+    background-color: var(--dark-primary-color);
+  }
+}

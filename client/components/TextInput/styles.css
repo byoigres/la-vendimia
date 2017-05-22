@@ -1,0 +1,12 @@
+.text-input-container {
+
+  & .text-input {
+    width: 100%;
+    border: 0.0625rem solid #bdbdbd;
+    outline: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
