@@ -1,0 +1,17 @@
+@import "variables";
+
+.table {
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+
+  & th {
+    background-color: var(--default-primary-color);
+    color: #FFF;
+    border: 1px solid var(--divider-color);
+  }
+
+  & th, td {
+    padding: 0.5rem;
+  }
+}
