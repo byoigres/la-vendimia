@@ -11,32 +11,57 @@ import {
   Header,
 } from 'components';
 import {
-  addCustomer,
-  getHash,
-  initializeAddCustomer,
+  getCustomer,
+  updateCustomer,
+  initializeEditCustomer,
   resetErrors,
 } from 'actions';
 
-class AddCustomer extends Component {
+class EditCustomer extends Component {
   constructor(props) {
     super(props);
-    this.add = this.add.bind(this);
+    this.update = this.update.bind(this);
+    this.state = this.props.configuration;
   }
 
   componentWillMount() {
-    this.props.initializeAddCustomer();
-    this.props.getHash();
+    const {
+      match: {
+        params: {
+          clave,
+        },
+      },
+    } = this.props;
+    this.props.getCustomer(clave);
+    this.props.initializeEditCustomer();
     this.props.resetErrors();
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.isRegistered) {
+    if (newProps.isUpdated) {
       this.props.history.push('/customers');
+    }
+
+    [
+      'nombre',
+      'apellidoPaterno',
+      'apellidoMaterno',
+      'rfc',
+    ].forEach(item => (
+      this.shouldUpdateStateFromNewProps(this.props, newProps, item)
+    ));
+  }
+
+  shouldUpdateStateFromNewProps(props, newProps, field) {
+    if (props.customer[field] !== newProps.customer[field]) {
+      const state = {};
+      state[field] = newProps.customer[field];
+      this.setState(() => (state));
     }
   }
 
-  add() {
-    this.props.addCustomer(
+  update() {
+    this.props.updateCustomer(
       this.clave.getValue(),
       this.nombre.getValue(),
       this.apellidoPaterno.getValue(),
@@ -44,21 +69,35 @@ class AddCustomer extends Component {
       this.rfc.getValue(),
     );
   }
+
+  updateField(name, value) {
+    const state = {};
+    state[name] = value;
+    this.setState(state);
+  }
+
   render() {
-    const { messages, clave } = this.props;
+    const {
+      match: {
+        params: {
+          clave,
+        },
+      },
+      messages,
+    } = this.props;
 
     return (
       <div>
-        <Header text="Registro de Cliente" />
+        <Header text="Editar Cliente" />
         <Form>
           <FormGroup
             label="Clave"
             labelSpace={2}
             input={
               <TextInput
-                value={clave}
-                name="clave"
+                defaultValue={clave}
                 disabled
+                maxLength={6}
                 error={messages.clave}
                 ref={(f) => { this.clave = f; }}
               />
@@ -70,8 +109,9 @@ class AddCustomer extends Component {
             labelSpace={2}
             input={
               <TextInput
-                defaultValue={''}
-                name="name"
+                value={this.state.nombre}
+                maxLength={80}
+                onChange={(e) => { this.updateField('nombre', e.target.value); }}
                 error={messages.nombre}
                 ref={(f) => { this.nombre = f; }}
               />
@@ -83,7 +123,9 @@ class AddCustomer extends Component {
             labelSpace={2}
             input={
               <TextInput
-                defaultValue={''}
+                value={this.state.apellidoPaterno}
+                maxLength={80}
+                onChange={(e) => { this.updateField('apellidoPaterno', e.target.value); }}
                 error={messages['apellido-paterno']}
                 ref={(f) => { this.apellidoPaterno = f; }}
               />
@@ -95,7 +137,9 @@ class AddCustomer extends Component {
             labelSpace={2}
             input={
               <TextInput
-                defaultValue={''}
+                value={this.state.apellidoMaterno}
+                maxLength={80}
+                onChange={(e) => { this.updateField('apellidoMaterno', e.target.value); }}
                 error={messages['apellido-materno']}
                 ref={(f) => { this.apellidoMaterno = f; }}
               />
@@ -107,7 +151,9 @@ class AddCustomer extends Component {
             labelSpace={2}
             input={
               <TextInput
-                defaultValue={''}
+                value={this.state.rfc}
+                maxLength={13}
+                onChange={(e) => { this.updateField('rfc', e.target.value); }}
                 error={messages.rfc}
                 ref={(f) => { this.rfc = f; }}
               />
@@ -118,7 +164,7 @@ class AddCustomer extends Component {
             <Button>
               <Link to="/customers">Cancelar</Link>
             </Button>
-            <Button onClick={this.add}>Guardar</Button>
+            <Button onClick={this.update}>Guardar</Button>
           </FormActions>
         </Form>
       </div>
@@ -126,53 +172,69 @@ class AddCustomer extends Component {
   }
 }
 
-AddCustomer.propTypes = {
+EditCustomer.propTypes = {
   messages: propTypes.objectOf(propTypes.string),
-  clave: propTypes.string,
-  // isRegistered: propTypes.boolean,
+  customer: propTypes.shape({
+    clave: propTypes.string,
+    nombre: propTypes.string,
+    apellidoPaterno: propTypes.string,
+    apellidoMaterno: propTypes.string,
+    rfc: propTypes.string,
+  }),
   history: propTypes.shape({
     push: propTypes.func.isRequired,
   }).isRequired,
-  getHash: propTypes.func.isRequired,
-  addCustomer: propTypes.func.isRequired,
-  initializeAddCustomer: propTypes.func.isRequired,
+  match: propTypes.shape({
+    params: propTypes.shape({
+      clave: propTypes.string.isRequired,
+    }),
+  }).isRequired,
+  getCustomer: propTypes.func.isRequired,
+  updateCustomer: propTypes.func.isRequired,
+  initializeEditCustomer: propTypes.func.isRequired,
   resetErrors: propTypes.func.isRequired,
 };
 
-AddCustomer.defaultProps = {
+EditCustomer.defaultProps = {
   messages: {},
   clave: '',
-  // message: null,
+  customer: {
+    clave: '',
+    nombre: '',
+    apellidoPaterno: '',
+    apellidoMaterno: '',
+    rfc: '',
+  },
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   const {
     errors: {
-      // message,
       messages,
     },
-    hashes: {
-      customer: clave,
+    entities: {
+      customers: {
+        [props.match.params.clave]: customer,
+      },
     },
     customers: {
-      registered: isRegistered,
+      updated: isUpdated,
     },
   } = state;
 
   return {
-    // message,
     messages,
-    clave: clave || '',
-    isRegistered,
+    customer,
+    isUpdated,
   };
 };
 
 export default withRouter(connect(
   mapStateToProps,
   {
-    addCustomer,
-    getHash,
-    initializeAddCustomer,
+    getCustomer,
+    updateCustomer,
+    initializeEditCustomer,
     resetErrors,
   },
-)(AddCustomer));
+)(EditCustomer));

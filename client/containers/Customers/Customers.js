@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  Button,
+  Header,
   Table,
 } from 'components';
 import { Link } from 'react-router-dom';
@@ -13,38 +13,24 @@ class Customers extends Component {
     this.props.getCustomers();
   }
 
-  edit(key) {
-    console.log(`Editing customer ${key}`);
-  }
-
   render() {
     const { customers } = this.props;
 
     return (
       <div>
-        <h1>Customers</h1>
-        <Button>
-          <Link to="/customers/add">Agregar</Link>
-        </Button>
+        <Header
+          text="Clientes Registrados"
+          subtext={<Link to="/customers/add">Agregar</Link>}
+        />
         <Table
           columns={['Clave', 'Nombre', '']}
           data={
-            Object.keys(customers).map(key => (
-              {
-                key,
-                values: [
-                  {
-                    value: customers[key].clave,
-                  },
-                  {
-                    canEdit: true,
-                    value: `${customers[key].nombre} ${customers[key].apellidoPaterno} ${customers[key].apellidoMaterno}`,
-                  },
-                ],
-              } 
-            ))
+            Object.keys(customers).map(key => [
+              customers[key].clave,
+              `${customers[key].nombre} ${customers[key].apellidoPaterno} ${customers[key].apellidoMaterno}`,
+              <Link to={`/customers/edit/${key}`}>Editar</Link>,
+            ])
           }
-          canEdit
         />
       </div>
     );

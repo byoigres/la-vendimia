@@ -2,6 +2,7 @@ import * as constants from '../constants';
 
 const initialState = {
   registered: false,
+  updated: false,
 };
 
 const customers = (state = initialState, action) => {
@@ -13,7 +14,16 @@ const customers = (state = initialState, action) => {
     });
   }
 
-  if (type === constants.RESET_CUSTOMER_REGISTRATION) {
+  if (type === constants.UPDATE_CUSTOMER_SUCCESS) {
+    return Object.assign({}, state, {
+      updated: true,
+    });
+  }
+
+  if (
+    type === constants.RESET_CUSTOMER_REGISTRATION ||
+    type === constants.RESET_CUSTOMER_UPDATE
+  ) {
     return initialState;
   }
 

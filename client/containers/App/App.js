@@ -10,7 +10,7 @@ import Navbar from 'components/Navbar';
 import { Menu, MenuSeparator } from 'components';
 import Hello from 'components/Hello';
 import Ventas from 'containers/Ventas';
-import { Customers, AddCustomer } from 'containers/Customers';
+import { Customers, AddCustomer, EditCustomer } from 'containers/Customers';
 import Configuration from 'containers/Configuration';
 import 'styles/normalize.css';
 import styles from 'styles/base.css';
@@ -46,6 +46,12 @@ const routes = [
     render={() => <AddCustomer />}
   />,
   <Route
+    path="/customers/edit/:clave"
+    key="@route/customers/edit"
+    exact
+    render={() => <EditCustomer />}
+  />,
+  <Route
     path="/configuration"
     key="@route/configuration"
     exact
@@ -66,7 +72,7 @@ const App = ({ store, history }) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div className={styles.content}>
-        {/* <Navbar title="La Vendimia" />*/}
+        <Navbar title="La Vendimia" />
         <div className={styles.container}>
           <div className={styles.aside}>
             <Menu items={menuItems} />

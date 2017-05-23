@@ -4,7 +4,7 @@ import styles from './styles.css';
 
 class Table extends Component {
   render() {
-    const { columns, data, canEdit } = this.props;
+    const { columns, data } = this.props;
 
     return (
       <table className={styles.table}>
@@ -24,16 +24,11 @@ class Table extends Component {
             data.map(row => (
               <tr key={Math.random()}>
                 {[
-                  row.values.map(column => (
+                  row.map(item => (
                     <td key={Math.random()}>
-                      {column.value}
+                      {item}
                     </td>
                   )),
-                  ...(
-                    canEdit ?
-                      <td key={Math.random()}><button onClick={() => alert(row.key)}>Edit</button></td> :
-                      null
-                  ),
                 ]}
               </tr>
             ))
@@ -46,7 +41,6 @@ class Table extends Component {
 
 Table.propTypes = {
   columns: propTypes.arrayOf(propTypes.string).isRequired,
-  /*
   data: propTypes.arrayOf(
     propTypes.arrayOf(
       propTypes.oneOfType([
@@ -55,7 +49,6 @@ Table.propTypes = {
       ]),
     ),
   ).isRequired,
-  */
 };
 
 export default Table;

@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  align-items: center;
+
+  & p {
+    flex: 1 0 auto;
+    margin: 0 1rem;
+  }
+
+  & .subtext {
+    margin:  0 1rem;
+    & a {
+      text-decoration: none;
+    }
+  }
+}
