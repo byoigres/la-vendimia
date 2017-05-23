@@ -13,7 +13,13 @@ class Customers extends Component {
     this.props.getCustomers();
   }
 
+  edit(key) {
+    console.log(`Editing customer ${key}`);
+  }
+
   render() {
+    const { customers } = this.props;
+
     return (
       <div>
         <h1>Customers</h1>
@@ -21,8 +27,24 @@ class Customers extends Component {
           <Link to="/customers/add">Agregar</Link>
         </Button>
         <Table
-          columns={['Clave', 'Nombre']}
-          data={this.props.customers}
+          columns={['Clave', 'Nombre', '']}
+          data={
+            Object.keys(customers).map(key => (
+              {
+                key,
+                values: [
+                  {
+                    value: customers[key].clave,
+                  },
+                  {
+                    canEdit: true,
+                    value: `${customers[key].nombre} ${customers[key].apellidoPaterno} ${customers[key].apellidoMaterno}`,
+                  },
+                ],
+              } 
+            ))
+          }
+          canEdit
         />
       </div>
     );
@@ -30,7 +52,15 @@ class Customers extends Component {
 }
 
 Customers.propTypes = {
-  customers: propTypes.arrayOf(propTypes.arrayOf(propTypes.string)).isRequired,
+  customers: propTypes.objectOf(
+    propTypes.shape({
+      clave: propTypes.string,
+      nombre: propTypes.string,
+      apellidoPaterno: propTypes.string,
+      apellidoMaterno: propTypes.string,
+      rfc: propTypes.string,
+    }),
+  ).isRequired,
   getCustomers: propTypes.func.isRequired,
 };
 
@@ -41,13 +71,14 @@ const mapStateToProps = (state) => {
     },
   } = state;
 
+  /*
   const customersArray = Object.keys(customers).map(key => [
-    customers[key].id,
+    customers[key].clave,
     `${customers[key].nombre} ${customers[key].apellidoPaterno} ${customers[key].apellidoMaterno}`,
   ]);
-
+  */
   return {
-    customers: customersArray,
+    customers, // : customersArray,
   };
 };
 

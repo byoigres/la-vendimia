@@ -120,7 +120,7 @@ if (IS_DEV) {
     historyApiFallback: {
       index: `${PUBLIC_PATH}${HTML_INDEX_FILENAME}`,
     },
-    host: '0.0.0.0',
+    host: 'localhost',
     hot: true,
     inline: true,
     port: process.env.PORT || 5321,

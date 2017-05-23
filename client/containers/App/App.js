@@ -66,7 +66,7 @@ const App = ({ store, history }) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div className={styles.content}>
-        <Navbar title="La Vendimia" />
+        {/* <Navbar title="La Vendimia" />*/}
         <div className={styles.container}>
           <div className={styles.aside}>
             <Menu items={menuItems} />

@@ -1,15 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import styles from './styles.css';
 
-const TextInput = () => (
-  <div className={styles['text-input-container']}>
-    <input
-      className={styles['text-input']}
-      type="text"
-    />
-  </div>
-);
+class TextInput extends Component {
+  getValue() {
+    return this.input.value;
+  }
 
-TextInput.propTypes = {};
+  render() {
+    const { error, ...props } = this.props;
+
+    let errorContainer = null;
+
+    if (error) {
+      errorContainer = (
+        <span className={styles['textbox-error']}>{error}</span>
+      );
+    }
+
+    return (
+      <div className={styles['text-input-container']}>
+        <input
+          {...props}
+          className={styles['text-input']}
+          type="text"
+          ref={(f) => { this.input = f; }}
+        />
+        {errorContainer}
+      </div>
+    );
+  }
+}
+
+TextInput.propTypes = {
+  error: propTypes.string,
+};
+
+TextInput.defaultProps = {
+  error: null,
+};
 
 export default TextInput;

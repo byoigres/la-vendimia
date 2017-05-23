@@ -17,8 +17,46 @@ export function getCustomers() {
   };
 }
 
-export function setCustomers() {
+export function addCustomer(clave, nombre, apellidoPaterno, apellidoMaterno, rfc) {
   return {
-    type: 'A',
+    [CALL_API]: {
+      types: [
+        constants.REGISTER_CUSTOMERS_REQUEST,
+        constants.REGISTER_CUSTOMERS_SUCCESS,
+        constants.REGISTER_CUSTOMERS_FAILURE,
+      ],
+      endpoint: 'api/customer',
+      method: 'POST',
+      body: {
+        clave,
+        nombre,
+        apellidoPaterno,
+        apellidoMaterno,
+        rfc,
+      },
+      schema: schemas.customer,
+    },
+  };
+}
+
+export function initializeAddCustomer() {
+  return {
+    type: constants.RESET_CUSTOMER_REGISTRATION,
+  };
+}
+
+
+export function getHash() {
+  return {
+    [CALL_API]: {
+      types: [
+        constants.GET_CUSTOMER_HASH_REQUEST,
+        constants.GET_CUSTOMER_HASH_SUCCESS,
+        constants.GET_CUSTOMER_HASH_FAILURE,
+      ],
+      endpoint: 'api/customer/hash',
+      method: 'GET',
+      schema: schemas.hash,
+    },
   };
 }

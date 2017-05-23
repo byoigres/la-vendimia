@@ -1,6 +1,6 @@
 import { schema } from 'normalizr';
 
-const customer = new schema.Entity('customers', {}, { idAttribute: 'id' });
+const customer = new schema.Entity('customers', {}, { idAttribute: 'clave' });
 const customers = new schema.Array(customer);
 
 const schemas = {
