@@ -9,7 +9,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import Navbar from 'components/Navbar';
 import { Menu, MenuSeparator } from 'components';
 import Hello from 'components/Hello';
-import Ventas from 'containers/Ventas';
+import Sales from 'containers/Sales';
 import { ListCustomers, AddCustomer, EditCustomer } from 'containers/Customers';
 import { ListItems, AddItem, EditItem } from 'containers/Items';
 import Configuration from 'containers/Configuration';
@@ -32,7 +32,7 @@ const routes = [
     path="/sales"
     key="@route/sales"
     exact
-    render={() => <Ventas />}
+    render={() => <Sales />}
   />,
   <Route
     path="/customers"
@@ -91,7 +91,7 @@ const App = ({ store, history }) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div className={styles.content}>
-        {/* <Navbar title="La Vendimia" /> */}
+        <Navbar title="La Vendimia" />
         <div className={styles.container}>
           <div className={styles.aside}>
             <Menu items={menuItems} />

@@ -9,7 +9,10 @@ const Form = ({ children }) => (
 );
 
 Form.propTypes = {
-  children: propTypes.arrayOf(propTypes.element).isRequired,
+  children: propTypes.oneOfType([
+    propTypes.arrayOf(propTypes.element),
+    propTypes.element,
+  ]).isRequired,
 };
 
 export default Form;
