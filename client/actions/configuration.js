@@ -25,7 +25,7 @@ export function addConfiguration(financiamiento, enganche, plazo) {
         constants.CREATE_CONFIGURATION_SUCCESS,
         constants.CREATE_CONFIGURATION_FAILURE,
       ],
-      endpoint: 'api/customer',
+      endpoint: 'api/configuration',
       method: 'PUT',
       body: {
         financiamiento,
@@ -45,7 +45,7 @@ export function updateConfiguration(financiamiento, enganche, plazo) {
         constants.UPDATE_CONFIGURATION_SUCCESS,
         constants.UPDATE_CONFIGURATION_FAILURE,
       ],
-      endpoint: 'api/customer',
+      endpoint: 'api/configuration',
       method: 'POST',
       body: {
         financiamiento,
@@ -57,32 +57,9 @@ export function updateConfiguration(financiamiento, enganche, plazo) {
   };
 }
 
-/*
-export function initializeAddCustomer() {
+
+export function initializeConfiguration() {
   return {
-    type: constants.RESET_CUSTOMER_REGISTRATION,
+    type: constants.RESET_CONFIGURATION,
   };
 }
-
-export function initializeEditCustomer() {
-  return {
-    type: constants.RESET_CUSTOMER_UPDATE,
-  };
-}
-
-
-export function getHash() {
-  return {
-    [CALL_API]: {
-      types: [
-        constants.GET_CUSTOMER_HASH_REQUEST,
-        constants.GET_CUSTOMER_HASH_SUCCESS,
-        constants.GET_CUSTOMER_HASH_FAILURE,
-      ],
-      endpoint: 'api/customer/hash',
-      method: 'GET',
-      schema: schemas.hash,
-    },
-  };
-}
-*/

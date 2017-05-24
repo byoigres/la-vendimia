@@ -11,22 +11,22 @@ import {
   Header,
 } from 'components';
 import {
-  getCustomer,
-  updateCustomer,
-  initializeEditCustomer,
+  getItem,
+  updateItem,
+  initializeEditItem,
   resetErrors,
 } from 'actions';
 
-class EditCustomer extends Component {
+class EditItem extends Component {
   constructor(props) {
     super(props);
     this.update = this.update.bind(this);
     this.state = {
       clave: '',
-      nombre: '',
-      apellidoPaterno: '',
-      apellidoMaterno: '',
-      rfc: '',
+      descripcion: '',
+      precio: '',
+      modelo: '',
+      existencia: '',
     };
   }
 
@@ -39,42 +39,42 @@ class EditCustomer extends Component {
       },
     } = this.props;
 
-    this.state = Object.assign({}, this.state, this.props.customer);
-    this.props.getCustomer(clave);
-    this.props.initializeEditCustomer();
+    this.state = Object.assign({}, this.state, this.props.item);
+    this.props.getItem(clave);
+    this.props.initializeEditItem();
     this.props.resetErrors();
   }
 
   componentWillReceiveProps(newProps) {
     if (newProps.isUpdated) {
-      this.props.history.push('/customers');
+      this.props.history.push('/items');
     }
 
     [
-      'nombre',
-      'apellidoPaterno',
-      'apellidoMaterno',
-      'rfc',
+      'descripcion',
+      'precio',
+      'modelo',
+      'existencia',
     ].forEach(item => (
       this.shouldUpdateStateFromNewProps(this.props, newProps, item)
     ));
   }
 
   shouldUpdateStateFromNewProps(props, newProps, field) {
-    if (props.customer[field] !== newProps.customer[field]) {
+    if (props.item[field] !== newProps.item[field]) {
       const state = {};
-      state[field] = newProps.customer[field];
+      state[field] = newProps.item[field];
       this.setState(() => (state));
     }
   }
 
   update() {
-    this.props.updateCustomer(
+    this.props.updateItem(
       this.clave.getValue(),
-      this.nombre.getValue(),
-      this.apellidoPaterno.getValue(),
-      this.apellidoMaterno.getValue(),
-      this.rfc.getValue(),
+      this.descripcion.getValue(),
+      this.precio.getValue(),
+      this.modelo.getValue(),
+      this.existencia.getValue(),
     );
   }
 
@@ -96,7 +96,7 @@ class EditCustomer extends Component {
 
     return (
       <div>
-        <Header text="Editar Cliente" />
+        <Header text="Editar Artículo" />
         <Form>
           <FormGroup
             label="Clave"
@@ -113,64 +113,64 @@ class EditCustomer extends Component {
             inputSpace={1}
           />
           <FormGroup
-            label="Nombre"
+            label="Descripción"
             labelSpace={2}
             input={
               <TextInput
-                value={this.state.nombre}
+                value={this.state.descripcion}
                 maxLength={80}
-                onChange={(e) => { this.updateField('nombre', e.target.value); }}
-                error={messages.nombre}
-                ref={(f) => { this.nombre = f; }}
+                onChange={(e) => { this.updateField('descripcion', e.target.value); }}
+                error={messages.descripcion}
+                ref={(f) => { this.descripcion = f; }}
               />
             }
             inputSpace={3}
           />
           <FormGroup
-            label="Apellido Paterno"
+            label="Precio"
             labelSpace={2}
             input={
               <TextInput
-                value={this.state.apellidoPaterno}
+                value={this.state.precio}
                 maxLength={80}
-                onChange={(e) => { this.updateField('apellidoPaterno', e.target.value); }}
-                error={messages['apellido-paterno']}
-                ref={(f) => { this.apellidoPaterno = f; }}
+                onChange={(e) => { this.updateField('precio', e.target.value); }}
+                error={messages.precio}
+                ref={(f) => { this.precio = f; }}
               />
             }
             inputSpace={3}
           />
           <FormGroup
-            label="Apellido Materno"
+            label="Modelo"
             labelSpace={2}
             input={
               <TextInput
-                value={this.state.apellidoMaterno}
+                value={this.state.modelo}
                 maxLength={80}
-                onChange={(e) => { this.updateField('apellidoMaterno', e.target.value); }}
-                error={messages['apellido-materno']}
-                ref={(f) => { this.apellidoMaterno = f; }}
+                onChange={(e) => { this.updateField('modelo', e.target.value); }}
+                error={messages.modelo}
+                ref={(f) => { this.modelo = f; }}
               />
             }
             inputSpace={3}
           />
           <FormGroup
-            label="RFC"
+            label="Existencia"
             labelSpace={2}
             input={
               <TextInput
-                value={this.state.rfc}
+                value={this.state.existencia}
                 maxLength={13}
-                onChange={(e) => { this.updateField('rfc', e.target.value); }}
-                error={messages.rfc}
-                ref={(f) => { this.rfc = f; }}
+                onChange={(e) => { this.updateField('existencia', e.target.value); }}
+                error={messages.existencia}
+                ref={(f) => { this.existencia = f; }}
               />
             }
             inputSpace={3}
           />
           <FormActions space={5}>
             <Button>
-              <Link to="/customers">Cancelar</Link>
+              <Link to="/items">Cancelar</Link>
             </Button>
             <Button onClick={this.update}>Guardar</Button>
           </FormActions>
@@ -180,14 +180,14 @@ class EditCustomer extends Component {
   }
 }
 
-EditCustomer.propTypes = {
+EditItem.propTypes = {
   messages: propTypes.objectOf(propTypes.string),
-  customer: propTypes.shape({
+  item: propTypes.shape({
     clave: propTypes.string,
-    nombre: propTypes.string,
-    apellidoPaterno: propTypes.string,
-    apellidoMaterno: propTypes.string,
-    rfc: propTypes.string,
+    descripcion: propTypes.string,
+    precio: propTypes.number,
+    modelo: propTypes.string,
+    existencia: propTypes.number,
   }),
   history: propTypes.shape({
     push: propTypes.func.isRequired,
@@ -197,21 +197,21 @@ EditCustomer.propTypes = {
       clave: propTypes.string.isRequired,
     }),
   }).isRequired,
-  getCustomer: propTypes.func.isRequired,
-  updateCustomer: propTypes.func.isRequired,
-  initializeEditCustomer: propTypes.func.isRequired,
+  getItem: propTypes.func.isRequired,
+  updateItem: propTypes.func.isRequired,
+  initializeEditItem: propTypes.func.isRequired,
   resetErrors: propTypes.func.isRequired,
 };
 
-EditCustomer.defaultProps = {
+EditItem.defaultProps = {
   messages: {},
   clave: '',
-  customer: {
+  item: {
     clave: '',
-    nombre: '',
-    apellidoPaterno: '',
-    apellidoMaterno: '',
-    rfc: '',
+    descripcion: '',
+    precio: 0,
+    modelo: '',
+    existencia: 0,
   },
 };
 
@@ -221,12 +221,12 @@ const mapStateToProps = (state, props) => {
       messages,
     },
     entities: {
-      customers: {
-        [props.match.params.clave]: customer,
+      items: {
+        [props.match.params.clave]: item,
       },
     },
     states: {
-      customer: {
+      item: {
         updated: isUpdated,
       },
     },
@@ -234,16 +234,16 @@ const mapStateToProps = (state, props) => {
 
   return {
     messages,
-    customer,
+    item,
     isUpdated,
   };
 };
 
 const connectedComponent = connect(mapStateToProps, {
-  getCustomer,
-  updateCustomer,
-  initializeEditCustomer,
+  getItem,
+  updateItem,
+  initializeEditItem,
   resetErrors,
-})(EditCustomer);
+})(EditItem);
 
 export default withRouter(connectedComponent);

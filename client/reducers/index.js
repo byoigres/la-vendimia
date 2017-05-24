@@ -4,7 +4,7 @@ import { routerReducer } from 'react-router-redux';
 import entities from './entities';
 import errors from './errors';
 import hashes from './hashes';
-import customers from './customers';
+import states from './states';
 
 export default function reducers() {
   return combineReducers({
@@ -12,6 +12,6 @@ export default function reducers() {
     entities,
     errors,
     hashes,
-    customers,
+    states,
   });
 }

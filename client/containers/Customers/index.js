@@ -1,9 +1,9 @@
-import Customers from './Customers';
+import ListCustomers from './ListCustomers';
 import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
 
 export {
-  Customers,
+  ListCustomers,
   AddCustomer,
   EditCustomer,
 };

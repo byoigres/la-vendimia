@@ -8,7 +8,7 @@ import {
 import { Link } from 'react-router-dom';
 import { getCustomers } from 'actions';
 
-class Customers extends Component {
+class ListCustomers extends Component {
   componentWillMount() {
     this.props.getCustomers();
   }
@@ -37,7 +37,7 @@ class Customers extends Component {
   }
 }
 
-Customers.propTypes = {
+ListCustomers.propTypes = {
   customers: propTypes.objectOf(
     propTypes.shape({
       clave: propTypes.string,
@@ -57,20 +57,11 @@ const mapStateToProps = (state) => {
     },
   } = state;
 
-  /*
-  const customersArray = Object.keys(customers).map(key => [
-    customers[key].clave,
-    `${customers[key].nombre} ${customers[key].apellidoPaterno} ${customers[key].apellidoMaterno}`,
-  ]);
-  */
   return {
-    customers, // : customersArray,
+    customers,
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    getCustomers,
-  },
-)(Customers);
+export default connect(mapStateToProps, {
+  getCustomers,
+})(ListCustomers);

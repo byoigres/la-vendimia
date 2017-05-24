@@ -36,9 +36,9 @@ export function addCustomer(clave, nombre, apellidoPaterno, apellidoMaterno, rfc
   return {
     [CALL_API]: {
       types: [
-        constants.REGISTER_CUSTOMERS_REQUEST,
-        constants.REGISTER_CUSTOMERS_SUCCESS,
-        constants.REGISTER_CUSTOMERS_FAILURE,
+        constants.ADD_CUSTOMER_REQUEST,
+        constants.ADD_CUSTOMER_SUCCESS,
+        constants.ADD_CUSTOMER_FAILURE,
       ],
       endpoint: 'api/customer',
       method: 'PUT',
@@ -78,18 +78,18 @@ export function updateCustomer(clave, nombre, apellidoPaterno, apellidoMaterno, 
 
 export function initializeAddCustomer() {
   return {
-    type: constants.RESET_CUSTOMER_REGISTRATION,
+    type: constants.RESET_ADD_CUSTOMER_STATE,
   };
 }
 
 export function initializeEditCustomer() {
   return {
-    type: constants.RESET_CUSTOMER_UPDATE,
+    type: constants.RESET_UPDATE_CUSTOMER_STATE,
   };
 }
 
 
-export function getHash() {
+export function getCustomerHash() {
   return {
     [CALL_API]: {
       types: [

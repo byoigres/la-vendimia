@@ -1,5 +1,7 @@
 const initialState = {
   customers: {},
+  items: {},
+  configurations: {},
 };
 
 const entities = (state = initialState, action) => {

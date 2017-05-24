@@ -10,7 +10,8 @@ import Navbar from 'components/Navbar';
 import { Menu, MenuSeparator } from 'components';
 import Hello from 'components/Hello';
 import Ventas from 'containers/Ventas';
-import { Customers, AddCustomer, EditCustomer } from 'containers/Customers';
+import { ListCustomers, AddCustomer, EditCustomer } from 'containers/Customers';
+import { ListItems, AddItem, EditItem } from 'containers/Items';
 import Configuration from 'containers/Configuration';
 import 'styles/normalize.css';
 import styles from 'styles/base.css';
@@ -37,7 +38,7 @@ const routes = [
     path="/customers"
     key="@route/customers"
     exact
-    render={() => <Customers />}
+    render={() => <ListCustomers />}
   />,
   <Route
     path="/customers/add"
@@ -50,6 +51,24 @@ const routes = [
     key="@route/customers/edit"
     exact
     render={() => <EditCustomer />}
+  />,
+  <Route
+    path="/items"
+    key="@route/items"
+    exact
+    render={() => <ListItems />}
+  />,
+  <Route
+    path="/items/add"
+    key="@route/items/add"
+    exact
+    render={() => <AddItem />}
+  />,
+  <Route
+    path="/items/edit/:clave"
+    key="@route/items/edit"
+    exact
+    render={() => <EditItem />}
   />,
   <Route
     path="/configuration"
@@ -72,7 +91,7 @@ const App = ({ store, history }) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <div className={styles.content}>
-        <Navbar title="La Vendimia" />
+        {/* <Navbar title="La Vendimia" /> */}
         <div className={styles.container}>
           <div className={styles.aside}>
             <Menu items={menuItems} />

@@ -11,37 +11,37 @@ import {
   Header,
 } from 'components';
 import {
-  addCustomer,
-  getCustomerHash,
-  initializeAddCustomer,
+  addItem,
+  getItemHash,
+  initializeAddItem,
   resetErrors,
 } from 'actions';
 
-class AddCustomer extends Component {
+class AddItem extends Component {
   constructor(props) {
     super(props);
     this.add = this.add.bind(this);
   }
 
   componentWillMount() {
-    this.props.initializeAddCustomer();
-    this.props.getCustomerHash();
+    this.props.initializeAddItem();
+    this.props.getItemHash();
     this.props.resetErrors();
   }
 
   componentWillReceiveProps(newProps) {
     if (newProps.isRegistered) {
-      this.props.history.push('/customers');
+      this.props.history.push('/items');
     }
   }
 
   add() {
-    this.props.addCustomer(
+    this.props.addItem(
       this.clave.getValue(),
-      this.nombre.getValue(),
-      this.apellidoPaterno.getValue(),
-      this.apellidoMaterno.getValue(),
-      this.rfc.getValue(),
+      this.descripcion.getValue(),
+      this.precio.getValue(),
+      this.modelo.getValue(),
+      this.existencia.getValue(),
     );
   }
   render() {
@@ -49,7 +49,7 @@ class AddCustomer extends Component {
 
     return (
       <div>
-        <Header text="Registro de Cliente" />
+        <Header text="Registro de Artículo" />
         <Form>
           <FormGroup
             label="Clave"
@@ -66,57 +66,56 @@ class AddCustomer extends Component {
             inputSpace={1}
           />
           <FormGroup
-            label="Nombre"
+            label="Descripción"
             labelSpace={2}
             input={
               <TextInput
                 defaultValue={''}
-                name="name"
-                error={messages.nombre}
-                ref={(f) => { this.nombre = f; }}
+                error={messages.descripcion}
+                ref={(f) => { this.descripcion = f; }}
               />
             }
             inputSpace={3}
           />
           <FormGroup
-            label="Apellido Paterno"
+            label="Precio"
             labelSpace={2}
             input={
               <TextInput
                 defaultValue={''}
-                error={messages['apellido-paterno']}
-                ref={(f) => { this.apellidoPaterno = f; }}
+                error={messages.precio}
+                ref={(f) => { this.precio = f; }}
               />
             }
             inputSpace={3}
           />
           <FormGroup
-            label="Apellido Materno"
+            label="Modelo"
             labelSpace={2}
             input={
               <TextInput
                 defaultValue={''}
-                error={messages['apellido-materno']}
-                ref={(f) => { this.apellidoMaterno = f; }}
+                error={messages.modelo}
+                ref={(f) => { this.modelo = f; }}
               />
             }
             inputSpace={3}
           />
           <FormGroup
-            label="RFC"
+            label="Existencia"
             labelSpace={2}
             input={
               <TextInput
                 defaultValue={''}
-                error={messages.rfc}
-                ref={(f) => { this.rfc = f; }}
+                error={messages.existencia}
+                ref={(f) => { this.existencia = f; }}
               />
             }
             inputSpace={3}
           />
           <FormActions space={5}>
             <Button>
-              <Link to="/customers">Cancelar</Link>
+              <Link to="/items">Cancelar</Link>
             </Button>
             <Button onClick={this.add}>Guardar</Button>
           </FormActions>
@@ -126,20 +125,19 @@ class AddCustomer extends Component {
   }
 }
 
-AddCustomer.propTypes = {
+AddItem.propTypes = {
   messages: propTypes.objectOf(propTypes.string),
   clave: propTypes.string,
-  // isRegistered: propTypes.boolean,
   history: propTypes.shape({
     push: propTypes.func.isRequired,
   }).isRequired,
-  getCustomerHash: propTypes.func.isRequired,
-  addCustomer: propTypes.func.isRequired,
-  initializeAddCustomer: propTypes.func.isRequired,
+  getItemHash: propTypes.func.isRequired,
+  addItem: propTypes.func.isRequired,
+  initializeAddItem: propTypes.func.isRequired,
   resetErrors: propTypes.func.isRequired,
 };
 
-AddCustomer.defaultProps = {
+AddItem.defaultProps = {
   messages: {},
   clave: '',
 };
@@ -150,10 +148,10 @@ const mapStateToProps = (state) => {
       messages,
     },
     hashes: {
-      customer: clave,
+      item: clave,
     },
     states: {
-      customer: {
+      item: {
         registered: isRegistered,
       },
     },
@@ -167,10 +165,10 @@ const mapStateToProps = (state) => {
 };
 
 const connectedComponent = connect(mapStateToProps, {
-  addCustomer,
-  getCustomerHash,
-  initializeAddCustomer,
+  addItem,
+  getItemHash,
+  initializeAddItem,
   resetErrors,
-})(AddCustomer);
+})(AddItem);
 
 export default withRouter(connectedComponent);
